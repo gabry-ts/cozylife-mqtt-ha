@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  cozylife-mqtt-bridge:
+    build: .
+    container_name: cozylife-mqtt-bridge
+    restart: unless-stopped
+    network_mode: host  # Necessario per accesso diretto al dispositivo e MQTT
+    environment:
+      - DEVICE_IP=10.0.2.77
+      - DEVICE_PORT=5555
+      - MQTT_BROKER=192.168.1.254
+      - MQTT_PORT=32774
+      - DEVICE_NAME=led_letto
+    volumes:
+      - /etc/localtime:/etc/localtime:ro  # Sync timezone
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import socket; s=socket.socket(); s.settimeout(5); s.connect(('10.0.2.77', 5555)); s.close()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
