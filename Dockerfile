@@ -14,11 +14,13 @@ RUN adduser --disabled-password --gecos '' --uid 1000 bridge
 USER bridge
 
 # Set environment variables with defaults
-ENV DEVICE_IP=10.0.2.77
+ENV DEVICE_IP=192.168.1.100
 ENV DEVICE_PORT=5555
-ENV MQTT_BROKER=192.168.1.254
-ENV MQTT_PORT=32774
-ENV DEVICE_NAME=led_letto
+ENV MQTT_BROKER=192.168.1.1
+ENV MQTT_PORT=1883
+ENV MQTT_USER=
+ENV MQTT_PASSWORD=
+ENV DEVICE_NAME=cozylife_light
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \

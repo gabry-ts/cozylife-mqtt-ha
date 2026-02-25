@@ -5,17 +5,19 @@ services:
     build: .
     container_name: cozylife-mqtt-bridge
     restart: unless-stopped
-    network_mode: host  # Necessario per accesso diretto al dispositivo e MQTT
+    network_mode: host
     environment:
-      - DEVICE_IP=10.0.2.77
+      - DEVICE_IP=192.168.1.100
       - DEVICE_PORT=5555
-      - MQTT_BROKER=192.168.1.254
-      - MQTT_PORT=32774
-      - DEVICE_NAME=led_letto
+      - MQTT_BROKER=192.168.1.1
+      - MQTT_PORT=1883
+      - MQTT_USER=
+      - MQTT_PASSWORD=
+      - DEVICE_NAME=cozylife_light
     volumes:
-      - /etc/localtime:/etc/localtime:ro  # Sync timezone
+      - /etc/localtime:/etc/localtime:ro
     healthcheck:
-      test: ["CMD", "python3", "-c", "import socket; s=socket.socket(); s.settimeout(5); s.connect(('10.0.2.77', 5555)); s.close()"]
+      test: ["CMD", "python3", "-c", "import socket; s=socket.socket(); s.settimeout(5); s.connect(('192.168.1.100', 5555)); s.close()"]
       interval: 30s
       timeout: 10s
       retries: 3
