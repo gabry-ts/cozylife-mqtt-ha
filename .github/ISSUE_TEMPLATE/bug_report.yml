@@ -1,0 +1,26 @@
+name: Bug Report
+description: Report a bug
+labels: ["bug"]
+body:
+  - type: textarea
+    attributes:
+      label: Describe the bug
+      description: A clear description of what the bug is.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: CozyLife device model
+      placeholder: "e.g. RGBCW LED strip"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Docker logs
+      description: Paste relevant logs from `docker compose logs`.
+      render: text
